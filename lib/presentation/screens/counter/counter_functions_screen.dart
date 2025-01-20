@@ -47,31 +47,67 @@ class _CounterFunctionsScreenState extends State<CounterFunctionsScreen> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             //BOTON SUMA
-            FloatingActionButton(
+            CustomButton(
+              icon: Icons.plus_one,
               onPressed: () {
                 setState(() {
-                  //La funcion setState cambia el estado al momento
-                  clickCounter++; //Funcion contadora del estado
+                  clickCounter++;
                 });
               },
-              child: const Icon(Icons.plus_one),
+            ),
+
+            //Widget para dar espacios entre boton
+            const SizedBox(
+                height: 10), //Crea una caja para dar espacios y le doy styles
+            //BOTON RESTA
+            CustomButton(
+              icon: Icons.exposure_minus_1_outlined,
+              onPressed: () {
+                if (clickCounter == 0) return;
+                setState(() {
+                  clickCounter--;
+                });
+              },
             ),
             //Widget para dar espacios entre boton
             const SizedBox(
                 height: 10), //Crea una caja para dar espacios y le doy styles
-
-            //BOTON RESTA
-            FloatingActionButton(
+            //BOTON REFREST
+            CustomButton(
+              icon: Icons.refresh_outlined,
               onPressed: () {
                 setState(() {
-                  //La funcion setState cambia el estado al momento
-                  clickCounter--; //Funcion contadora del estado
+                  clickCounter = 0;
                 });
               },
-              child: const Icon(Icons
-                  .exposure_minus_1_outlined), //Aqui camnbio el icono de resta
             ),
+            //Widget para dar espacios entre boton
+            const SizedBox(
+                height: 10), //Crea una caja para dar espacios y le doy styles
           ],
         ));
+  }
+}
+
+class CustomButton extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback? onPressed;
+
+  const CustomButton({
+    super.key,
+    required this.icon,
+    this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      //shape: StadiumBorder(), //Con Shape y esa propiedad hacemos el boton circular
+      enableFeedback: true, // Cuando le das al boton hace una vibracion o ruido
+      elevation: 10,
+      backgroundColor: Colors.yellow,
+      onPressed: onPressed,
+      child: Icon(icon),
+    );
   }
 }
